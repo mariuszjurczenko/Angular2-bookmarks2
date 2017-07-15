@@ -10,9 +10,18 @@ export class BookmarkService {
 
     constructor(private http: Http) { }
 
-      addBookmark(bookmark) {
+    addBookmark(bookmark) {
         const json = JSON.stringify(bookmark);
         return this.http.post(`${this.baseUrl}/bookmarks.json`, json)
+        .toPromise();  
+    }
+
+    updateBookmark(bookmark) {
+        const json = JSON.stringify({
+            Title: bookmark.Title,
+            Url: bookmark.Url
+        });
+        return this.http.patch(`${this.baseUrl}/bookmarks/${bookmark.id}.json`, json)
         .toPromise();  
     }
 
